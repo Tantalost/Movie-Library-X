@@ -1,0 +1,22 @@
+<!--?xml version="1.0" encoding="utf-8"?-->
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 100 100" role="img" aria-labelledby="title desc">
+  <title id="title">X logo</title>
+  <desc id="desc">Green X logo with transparent background</desc>
+
+  <!-- subtle glow filter -->
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"></feGaussianBlur>
+      <feMerge>
+        <feMergeNode in="blur"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- X lines only -->
+  <g filter="url(#glow)">
+    <line x1="20" y1="20" x2="80" y2="80" stroke="#00FF66" stroke-width="12" stroke-linecap="round"></line>
+    <line x1="80" y1="20" x2="20" y2="80" stroke="#00FF66" stroke-width="12" stroke-linecap="round"></line>
+  </g>
+</svg>
