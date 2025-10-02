@@ -1,6 +1,6 @@
 import { Routes, Route, NavLink } from "react-router-dom";
-import Home from "./components/Home.jsx";
-import About from "./components/About.jsx";
+import Home from "./components/pages/Home.jsx";
+import About from "./components/pages/About.jsx";
 
 export default function App() {
   return (
