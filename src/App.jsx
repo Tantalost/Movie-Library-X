@@ -1,21 +1,38 @@
-import { Routes, Route, NavLink } from "react-router-dom";
-import Home from "./components/pages/Home.jsx";
-import About from "./components/pages/About.jsx";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-export default function App() {
+// Movies
+import MoviesList from "./pages/movies/MoviesList";
+import MovieDetails from "./pages/movies/MovieDetails";
+import MovieReviews from "./pages/movies/MovieReviews";
+
+// People
+import PeopleList from "./pages/people/PeopleList";
+
+// Static pages
+import About from "./pages/About";
+import Home from "./pages/Home";
+
+function App() {
   return (
-    <div>
-      <nav style={{ marginBottom: "1rem" }}>
-        <NavLink to="/" end style={{ marginRight: "1rem" }}>
-          Home
-        </NavLink>
-        <NavLink to="/about">About</NavLink>
-      </nav>
-
+    <Router>
       <Routes>
-        <Route path="/" element={<Home title="Welcome!" />} />
-        <Route path="/about" element={<About />} />
+        {/* Home route */}
+        <Route path="/" element={<Home />} />
+
+        {/* Movies routes */}
+        <Route path="/movies" element={<MoviesList defaultSort="rating" />} />
+        <Route path="/movies/:id" element={<MovieDetails />}>
+          <Route path="reviews" element={<MovieReviews />} />
+        </Route>
+
+        {/* People route */}
+        <Route path="/people" element={<PeopleList />} />
+
+        {/* About route */}
+        <Route path="/about" element={<About author="Group 3" />} />
       </Routes>
-    </div>
+    </Router>
   );
 }
+
+export default App;
