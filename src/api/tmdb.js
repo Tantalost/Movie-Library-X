@@ -44,3 +44,11 @@ export async function getReviews(id) {
 export async function getPeople(page = 1) {
     return fetchFromTMDb("/person/popular", { page });
 }
+
+export async function getRecommendations(id) {
+  return fetchFromTMDb(`/movie/${id}/recommendations`);
+}
+
+export async function getGenres() {
+  return fetchFromTMDb("/genre/movie/list");
+}

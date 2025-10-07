@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { searchMovies } from "../api/thdb";
+import { Link } from "react-router-dom";
+import { searchMovies } from "../api/tmdb";
 
 const Home = () => {
     const [featured, setFeatured] = useState([]);
@@ -11,13 +12,13 @@ const Home = () => {
         async function load() {
             try {
                 const featuredData = await searchMovies({ sort: "popularity" });
-                setFeatured(featuredData.results.slice(0, 10));
+                setFeatured(featuredData.results?.slice(0, 10) || []);
 
-                const indieData = await searchMovies({ genres: ["18"], sort: "rating" });
-                setIndie(indieData.results.slice(0, 10));
+                const indieData = await searchMovies({ genres: [18], sort: "rating" });
+                setIndie(indieData.results?.slice(0, 10) || []);
 
-                const animeData = await searchMovies({ genres: ["16"], sort: "rating" });
-                setAnime(animeData.results.slice(0, 10));
+                const animeData = await searchMovies({ genres: [16], sort: "rating" });
+                setAnime(animeData.results?.slice(0, 10) || []);
             } catch (e) {
                 console.error("Failed to fetch movies", e);
             } finally {
@@ -60,12 +61,13 @@ const MovieSection = ({ title, movies }) => (
             {movies.map((m) => (
                 <MovieCard
                     key={m.id}
+                    id={m.id}
                     title={m.title}
                     rating={m.vote_average?.toFixed(1) || "N/A"}
                     poster={
                         m.poster_path
                             ? `https://image.tmdb.org/t/p/w200${m.poster_path}`
-                            : "https://via.placeholder.com/200x750?text=No+Image"
+                            : "https://via.placeholder.com/200x300?text=No+Image"
                     }
                 />
             ))}
@@ -73,25 +75,23 @@ const MovieSection = ({ title, movies }) => (
     </section>
 );
 
-const MovieCard = ({ title, rating, poster }) => {
-    return (
-        <div className="flex-shrink-0 w-40 h-60 bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer group relative">
+const MovieCard = ({ id, title, rating, poster }) => (
+    <Link to={`/movies/${id}`} className="flex-shrink-0">
+        <div className="w-40 h-60 bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer group relative">
             <img
                 src={poster}
                 alt={title}
                 loading="lazy"
                 className="w-full h-full object-cover"
             />
-
             <div className="absolute top-2 left-2 bg-black bg-opacity-70 rounded px-2 py-1 text-xs text-white flex items-center space-x-1">
                 ⭐ <span>{rating}</span>
             </div>
-
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-2 py-1">
                 <h3 className="text-white text-sm truncate">{title}</h3>
             </div>
         </div>
-    );
-};
+    </Link>
+);
 
 export default Home;
