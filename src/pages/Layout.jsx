@@ -9,7 +9,7 @@ const Layout = () => {
                     <Link to="/" className="text-white text-xl sm:text-2xl font-bold">
                         MLX
                     </Link>
-                    <div className="flex items-center gap-4 sm:gap-6 text-sm">
+                    <div className="flex items-center gap-4 sm:gap-10 text-xl font-regular">
                         <Link to="/movies" className="text-white hover:text-teal-300 transition-colors">Movies</Link>
                         <Link to="/about" className="text-white hover:text-teal-300 transition-colors">About</Link>
                     </div>
