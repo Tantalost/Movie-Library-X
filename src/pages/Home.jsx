@@ -1,0 +1,97 @@
+import React, { useEffect, useState } from "react";
+import { searchMovies } from "../api/thdb";
+
+const Home = () => {
+    const [featured, setFeatured] = useState([]);
+    const [indie, setIndie] = useState([]);
+    const [anime, setAnime] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function load() {
+            try {
+                const featuredData = await searchMovies({ sort: "popularity" });
+                setFeatured(featuredData.results.slice(0, 10));
+
+                const indieData = await searchMovies({ genres: ["18"], sort: "rating" });
+                setIndie(indieData.results.slice(0, 10));
+
+                const animeData = await searchMovies({ genres: ["16"], sort: "rating" });
+                setAnime(animeData.results.slice(0, 10));
+            } catch (e) {
+                console.error("Failed to fetch movies", e);
+            } finally {
+                setLoading(false);
+            }
+        }
+        load();
+    }, []);
+
+    if (loading) return <p className="text-white p-6">Loading movies...</p>;
+
+    return (
+        <div className="min-h-screen bg-teal-900">
+            <section className="mb-8">
+                <div className="relative bg-gradient-to-r from-teal-800 to-teal-700 rounded-xl h-80 overflow-hidden">
+                    <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+                    <div className="relative z-10 flex items-center h-full px-8">
+                        <div className="max-w-md">
+                            <h1 className="text-white text-4xl font-bold leading-tight">
+                                Watch New Trending Movies in 2025
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <main className="px-6 space-y-8">
+                <MovieSection title="Featured Movies" movies={featured} />
+                <MovieSection title="Indie Movies" movies={indie} />
+                <MovieSection title="Anime Movies" movies={anime} />
+            </main>
+        </div>
+    );
+};
+
+const MovieSection = ({ title, movies }) => (
+    <section>
+        <h2 className="text-white text-2xl font-bold mb-4">{title}</h2>
+        <div className="flex space-x-4 overflow-x-auto pb-4">
+            {movies.map((m) => (
+                <MovieCard
+                    key={m.id}
+                    title={m.title}
+                    rating={m.vote_average?.toFixed(1) || "N/A"}
+                    poster={
+                        m.poster_path
+                            ? `https://image.tmdb.org/t/p/w200${m.poster_path}`
+                            : "https://via.placeholder.com/200x750?text=No+Image"
+                    }
+                />
+            ))}
+        </div>
+    </section>
+);
+
+const MovieCard = ({ title, rating, poster }) => {
+    return (
+        <div className="flex-shrink-0 w-40 h-60 bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer group relative">
+            <img
+                src={poster}
+                alt={title}
+                loading="lazy"
+                className="w-full h-full object-cover"
+            />
+
+            <div className="absolute top-2 left-2 bg-black bg-opacity-70 rounded px-2 py-1 text-xs text-white flex items-center space-x-1">
+                ⭐ <span>{rating}</span>
+            </div>
+
+            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-2 py-1">
+                <h3 className="text-white text-sm truncate">{title}</h3>
+            </div>
+        </div>
+    );
+};
+
+export default Home;
