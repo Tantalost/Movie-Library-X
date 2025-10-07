@@ -37,9 +37,15 @@ const Home = () => {
                     <div className="absolute inset-0 bg-black bg-opacity-40"></div>
                     <div className="relative z-10 flex items-center h-full px-8">
                         <div className="max-w-md">
-                            <h1 className="text-white text-4xl font-bold leading-tight">
+                            <img
+                                src="https://singh-cp.github.io/netflix-landingpage/images/netflix-background-image.jpg?fbclid=IwY2xjawNRmtFleHRuA2FlbQIxMABicmlkETFYc3FDUGhsNnIyREZWcXJsAR6ayiESouCNKE9m4_bHHg6fHRwtQJvZiYsGXbkrt_VxXJjpEe0W0ZS-B2R2mQ_aem_UENhRBggz5UOWEr0yyq73g"
+                                alt=""
+                                className="absolute inset-0 w-full h-full object-cover opacity-70"
+                            />                            
+                            <h1 className="relative z-10 text-white text-3xl font-bold text-center px-4">
                                 Watch New Trending Movies in 2025
                             </h1>
+                            <div className="absolute inset-0 bg-black opacity-50"></div>
                         </div>
                     </div>
                 </div>
