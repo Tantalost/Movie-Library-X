@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getMovie, getRecommendations } from "../api/tmdb";
+import { Outlet } from "react-router-dom";
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -118,6 +119,29 @@ const MovieDetails = () => {
         </div>
       </section>
 
+      <section className="px-6 sm:px-8 pb-12">
+        <h2 className="text-2xl font-bold mb-4">Cast</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+          {movie.credits?.cast?.slice(0, 12).map((actor) => (
+            <div key={actor.id} className="bg-gray-800 rounded-lg overflow-hidden shadow hover:shadow-lg transition">
+              <img
+                src={
+                  actor.profile_path
+                    ? `https://image.tmdb.org/t/p/w300${actor.profile_path}`
+                    : "https://via.placeholder.com/300x450?text=No+Image"
+                }
+                alt={actor.name}
+                className="w-full h-64 object-cover"
+              />
+              <div className="p-3">
+                <h3 className="text-white text-sm font-medium truncate">{actor.name}</h3>
+                <p className="text-gray-400 text-xs truncate">as {actor.character}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="px-6 sm:px-8 py-8">
         <h2 className="text-2xl font-bold mb-4">Synopsis</h2>
         <p className="text-gray-200">{movie.overview}</p>
@@ -135,6 +159,7 @@ const MovieDetails = () => {
         >
           View Reviews →
         </Link>
+        <Outlet />
       </section>
 
       <section className="px-6 sm:px-8 pb-12">

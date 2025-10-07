@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import MovieDetails from "./pages/MovieDetails";
 import Layout from "./pages/Layout";
 import MoviesList from "./pages/MoviesList";
+import MovieReviews from "./pages/MovieReviews";
 import './index.css';
 
 function App() {
@@ -11,7 +12,9 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="movies" element={<MoviesList />} />
-        <Route path="movies/:id" element={<MovieDetails />} />
+        <Route path="movies/:id" element={<MovieDetails />}>
+          <Route path="reviews" element={<MovieReviews />} />
+        </Route>
       </Route>
     </Routes>
   );
