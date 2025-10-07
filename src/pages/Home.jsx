@@ -42,7 +42,7 @@ const Home = () => {
                     <div className="relative z-10 flex items-center h-full px-8">
                         <div className="max-w-md">
                             <img
-                                src="https://singh-cp.github.io/netflix-landingpage/images/netflix-background-image.jpg?fbclid=IwY2xjawNRmtFleHRuA2FlbQIxMABicmlkETFYc3FDUGhsNnIyREZWcXJsAR6ayiESouCNKE9m4_bHHg6fHRwtQJvZiYsGXbkrt_VxXJjpEe0W0ZS-B2R2mQ_aem_UENhRBggz5UOWEr0yyq73g"
+                                src="src/image/cover.png"
                                 alt=""
                                 className="absolute inset-0 w-full h-full object-cover opacity-70"
                             />
