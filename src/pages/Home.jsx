@@ -58,7 +58,7 @@ const Home = () => {
             <main className="px-6 space-y-8">
                 <MovieSection title="Featured Movies" movies={featured} />
                 <MovieSection title="Indie Movies" movies={indie} />
-                <MovieSection title="Anime Movies" movies={anime} />
+                <MovieSection title="Animation Movies" movies={anime} />
             </main>
         </div>
     );
