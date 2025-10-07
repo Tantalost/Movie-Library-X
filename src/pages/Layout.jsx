@@ -11,7 +11,6 @@ const Layout = () => {
                     </Link>
                     <div className="flex items-center gap-4 sm:gap-6 text-sm">
                         <Link to="/movies" className="text-white hover:text-teal-300 transition-colors">Movies</Link>
-                        <Link to="/cast" className="text-white hover:text-teal-300 transition-colors">Cast</Link>
                         <Link to="/about" className="text-white hover:text-teal-300 transition-colors">About</Link>
                     </div>
                 </nav>
