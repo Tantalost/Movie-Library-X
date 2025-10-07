@@ -92,8 +92,10 @@ const MovieCard = ({ id, title, rating, poster }) => (
                 src={poster}
                 alt={title}
                 loading="lazy"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-105"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-green-400/30 via-green-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
             <div className="absolute top-2 left-2 bg-black bg-opacity-70 rounded px-2 py-1 text-xs text-white flex items-center space-x-1">
                 ⭐ <span>{rating}</span>
             </div>
