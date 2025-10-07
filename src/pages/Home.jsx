@@ -9,6 +9,10 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        document.title = "MLX - Home";
+    }, []);
+
+    useEffect(() => {
         async function load() {
             try {
                 const featuredData = await searchMovies({ sort: "popularity" });
@@ -41,7 +45,7 @@ const Home = () => {
                                 src="https://singh-cp.github.io/netflix-landingpage/images/netflix-background-image.jpg?fbclid=IwY2xjawNRmtFleHRuA2FlbQIxMABicmlkETFYc3FDUGhsNnIyREZWcXJsAR6ayiESouCNKE9m4_bHHg6fHRwtQJvZiYsGXbkrt_VxXJjpEe0W0ZS-B2R2mQ_aem_UENhRBggz5UOWEr0yyq73g"
                                 alt=""
                                 className="absolute inset-0 w-full h-full object-cover opacity-70"
-                            />                            
+                            />
                             <h1 className="relative z-10 text-white text-3xl font-bold text-center px-4">
                                 Watch New Trending Movies in 2025
                             </h1>

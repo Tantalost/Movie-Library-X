@@ -26,6 +26,12 @@ const MovieDetails = () => {
     loadMovie();
   }, [id]);
 
+  useEffect(() => {
+    if (movie?.title) {
+      document.title = `Movie - ${movie.title}`;
+    }
+  }, [movie]);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-teal-900 flex items-center justify-center">
