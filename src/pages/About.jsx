@@ -1,10 +1,10 @@
 import React from 'react';
 
 const team = [
-  { name: 'Justin James Alviar', role: 'Team Lead', photo: 'src/image/1.png' },
+  { name: 'John Lloyd Climaco', role: 'Lead Developer', photo: 'src/image/2.png' },
   { name: 'Jayna Sahibul', role: 'Business Analyst', photo: 'src/image/4.png' },
   { name: 'Stephanie Villamor', role: 'Designer', photo: 'src/image/5.png' },
-  { name: 'John Lloyd Climaco', role: 'Developer', photo: 'src/image/2.png' },
+  { name: 'Justin James Alviar', role: 'Project Manager', photo: 'src/image/1.png' },
   { name: 'Vennasshierr Malali', role: 'Quality Assurance', photo: 'src/image/3.png' },
 ];
 
