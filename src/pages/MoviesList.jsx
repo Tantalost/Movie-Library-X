@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useNavigate, useLocation  } from "react-router-dom";
 import { searchMovies, getGenres } from "../api/tmdb";
 
 const MoviesList = ({ defaultSort = "rating" }) => {
@@ -8,6 +8,7 @@ const MoviesList = ({ defaultSort = "rating" }) => {
     const q = searchParams.get("q") || "";
     const genreParam = searchParams.get("genre") || "";
     const sort = searchParams.get("sort") || defaultSort;
+    const order = searchParams.get("order") || "desc";
 
     const genresSelected = genreParam.split(",").filter(Boolean);
 
@@ -15,6 +16,9 @@ const MoviesList = ({ defaultSort = "rating" }) => {
     const [genres, setGenres] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         async function loadMovies() {
@@ -25,6 +29,7 @@ const MoviesList = ({ defaultSort = "rating" }) => {
                     q,
                     genres: genresSelected,
                     sort,
+                    order,
                 });
                 setMovies(data?.results || []);
             } catch (err) {
@@ -35,7 +40,7 @@ const MoviesList = ({ defaultSort = "rating" }) => {
             }
         }
         loadMovies();
-    }, [q, genresSelected.join(","), sort]);
+    }, [q, genresSelected.join(","), sort, order]);
 
     useEffect(() => {
         async function loadGenres() {
@@ -54,8 +59,16 @@ const MoviesList = ({ defaultSort = "rating" }) => {
             const next = new URLSearchParams(searchParams.toString());
             if (e.target.value) next.set("q", e.target.value);
             else next.delete("q");
-            setSearchParams(next);
+            navigate({ search: next.toString() });
         }
+    }
+
+    function toggleSortOrder() {
+        const next = new URLSearchParams(searchParams.toString());
+        const currentOrder = next.get("order") || "desc";
+        const newOrder = currentOrder === "asc" ? "desc" : "asc";
+        next.set("order", newOrder);
+        setSearchParams(next);
     }
 
     function toggleGenre(id) {
@@ -72,6 +85,7 @@ const MoviesList = ({ defaultSort = "rating" }) => {
     function updateSort(field) {
         const next = new URLSearchParams(searchParams.toString());
         next.set("sort", field);
+        next.set("order", "desc");
         setSearchParams(next);
     }
 
@@ -95,8 +109,8 @@ const MoviesList = ({ defaultSort = "rating" }) => {
                         key={g.id}
                         onClick={() => toggleGenre(g.id)}
                         className={`px-3 py-1 rounded-full border ${genresSelected.includes(String(g.id))
-                                ? "bg-teal-600 border-teal-400"
-                                : "bg-teal-800 border-teal-600"
+                            ? "bg-teal-600 border-teal-400"
+                            : "bg-teal-800 border-teal-600"
                             }`}
                     >
                         {g.name}
@@ -104,20 +118,24 @@ const MoviesList = ({ defaultSort = "rating" }) => {
                 ))}
             </div>
 
-            <div className="flex gap-4 mb-6">
+            <div className="flex gap-4 mb-6 flex-wrap items-center">
                 <button
                     onClick={() => updateSort("rating")}
-                    className={`px-4 py-2 rounded ${sort === "rating" ? "bg-teal-600" : "bg-teal-800"
-                        }`}
+                    className={`px-4 py-2 rounded ${sort === "rating" ? "bg-teal-600" : "bg-teal-800"}`}
                 >
                     Sort by Rating
                 </button>
                 <button
                     onClick={() => updateSort("year")}
-                    className={`px-4 py-2 rounded ${sort === "year" ? "bg-teal-600" : "bg-teal-800"
-                        }`}
+                    className={`px-4 py-2 rounded ${sort === "year" ? "bg-teal-600" : "bg-teal-800"}`}
                 >
                     Sort by Year
+                </button>
+                <button
+                    onClick={toggleSortOrder}
+                    className="px-4 py-2 rounded bg-teal-700 hover:bg-teal-600 transition"
+                >
+                    Order: {order === "asc" ? "Ascending ↑" : "Descending ↓"}
                 </button>
             </div>
 
