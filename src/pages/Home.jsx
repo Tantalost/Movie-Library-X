@@ -67,7 +67,7 @@ const Home = () => {
 const MovieSection = ({ title, movies }) => (
     <section>
         <h2 className="text-white text-2xl font-bold mb-4">{title}</h2>
-        <div className="flex space-x-4 overflow-x-auto pb-4">
+        <div className="flex space-x-4 overflow-x-auto pb-4 scrollbar-hide">
             {movies.map((m) => (
                 <MovieCard
                     key={m.id}

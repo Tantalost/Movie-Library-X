@@ -58,6 +58,8 @@ const MoviesList = ({ defaultSort = "rating" }) => {
         loadMovies();
     }, [q, genresSelected.join(","), sort, order]);
 
+
+
     useEffect(() => {
         async function loadGenres() {
             try {
@@ -147,12 +149,14 @@ const MoviesList = ({ defaultSort = "rating" }) => {
                 >
                     Sort by Year
                 </button>
-                <button
-                    onClick={toggleSortOrder}
-                    className="px-4 py-2 rounded bg-teal-700 hover:bg-teal-600 transition"
-                >
-                    Order: {order === "asc" ? "Ascending ↑" : "Descending ↓"}
-                </button>
+                {q && (
+                    <button
+                        onClick={toggleSortOrder}
+                        className="px-4 py-2 rounded bg-teal-700 hover:bg-teal-600 transition"
+                    >
+                        Order: {order === "asc" ? "Ascending ↑" : "Descending ↓"}
+                    </button>
+                )}
             </div>
 
             {loading && <p className="text-center">Loading...</p>}
