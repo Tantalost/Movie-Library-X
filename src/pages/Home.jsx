@@ -15,13 +15,13 @@ const Home = () => {
     useEffect(() => {
         async function load() {
             try {
-                const featuredData = await searchMovies({ sort: "popularity" });
+                const featuredData = await searchMovies({ sort: "popularity", order: "desc" });
                 setFeatured(featuredData.results?.slice(0, 10) || []);
 
-                const indieData = await searchMovies({ genres: [18], sort: "rating" });
+                const indieData = await searchMovies({ genres: [18], sort: "rating", order: "desc"});
                 setIndie(indieData.results?.slice(0, 10) || []);
 
-                const animeData = await searchMovies({ genres: [16], sort: "rating" });
+                const animeData = await searchMovies({ genres: [16], sort: "rating", order: "desc" });
                 setAnime(animeData.results?.slice(0, 10) || []);
             } catch (e) {
                 console.error("Failed to fetch movies", e);

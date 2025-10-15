@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useSearchParams, useNavigate, useLocation  } from "react-router-dom";
+import { Link, useSearchParams, useNavigate, useLocation } from "react-router-dom";
 import { searchMovies, getGenres } from "../api/tmdb";
 
 const MoviesList = ({ defaultSort = "rating" }) => {
@@ -31,6 +31,22 @@ const MoviesList = ({ defaultSort = "rating" }) => {
                     sort,
                     order,
                 });
+
+                let results = data?.results || [];
+
+                if (sort === "rating") {
+                    results.sort((a, b) =>
+                        order === "asc"
+                            ? a.vote_average - b.vote_average
+                            : b.vote_average - a.vote_average
+                    );
+                } else if (sort === "year") {
+                    results.sort((a, b) => {
+                        const yearA = a.release_date ? parseInt(a.release_date.slice(0, 4)) : 0;
+                        const yearB = b.release_date ? parseInt(b.release_date.slice(0, 4)) : 0;
+                        return order === "asc" ? yearA - yearB : yearB - yearA;
+                    });
+                }
                 setMovies(data?.results || []);
             } catch (err) {
                 console.error("Error fetching movies:", err);
