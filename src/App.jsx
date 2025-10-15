@@ -6,6 +6,7 @@ import MoviesList from "./pages/MoviesList";
 import About from "./pages/About";
 import MovieReviews from "./pages/MovieReviews";
 import './index.css';
+import NotFound from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="movies/:id" element={<MovieDetails />}>
           <Route path="reviews" element={<MovieReviews />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

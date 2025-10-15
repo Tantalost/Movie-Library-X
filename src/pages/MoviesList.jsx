@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useSearchParams, useNavigate, useLocation } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { searchMovies, getGenres } from "../api/tmdb";
 
 const MoviesList = ({ defaultSort = "rating" }) => {
